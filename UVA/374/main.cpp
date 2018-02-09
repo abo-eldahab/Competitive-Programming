@@ -3,16 +3,17 @@ using namespace std;
 
 int main()
 {
-    long long n,m,p;
-    while(scanf("%lld %lld %lld",&n,&m,&p)!=EOF){
-        long long res = 1;
-        while (m){
-            if (m & 1)
-                res = (res * n)%p;
-            n = (n * n)%p;
-            m >>= 1;
+    int b,p,m;
+    while(scanf("%d %d %d",&b,&p,&m)!=EOF){
+        int res = 1;
+        b %= m;
+        while (p){
+            if (p & 1)
+                res = (res * b)%m;
+            b = (b * b)%m;
+            p >>= 1;
         }
-        printf("%lld\n",res);
+        printf("%d\n",res);
     }
     return 0;
 }
