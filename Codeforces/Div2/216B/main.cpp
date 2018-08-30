@@ -5,16 +5,15 @@ int n,m;
 vector<int> adj[100+5];
 bool vis[100+5];
 
-int gl=0;
-
-void sol(int u ,int par){
-    ++gl;
+int sol(int u ,int par){
     vis[u]=1;
+    int counter = 0;
     for(int i=0 ; i<adj[u].size() ; ++i){
         int child = adj[u][i];
-        if(vis[child] && child!=par)gl+=200;
-        else if(!vis[child]) sol(child,u);
+        if(vis[child] && child!=par)return counter+200;
+        else if(!vis[child]) counter+=(1+sol(child,u));
     }
+    return counter;
 }
 
 int main()
@@ -31,10 +30,9 @@ int main()
     int c=0;
     for(int i=1 ; i<= n ; ++i){
         if(!vis[i]){
-            gl=0;
-            sol(i,0);
-            if(gl>200 && (gl&1))++ans;
-            else if(gl<200 && (gl&1))++c;
+            int x = sol(i,0)+1;
+            if(x>200 && (x&1))++ans;
+            else if(x<200 && (x&1))++c;
         }
     }
     if(c&1)++ans;
